@@ -1,0 +1,35 @@
+{
+  "name": "@smartblog/web-upload-file-lib",
+  "version": "1.0.17",
+  "description": "web html5 input file",
+  "main": "./dist",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf ./dist && tsc",
+    "patch": "npm version patch",
+    "publish": "npm publish --access=public",
+    "git:commit:build": "git add . && git commit -m 'build' && git push",
+    "deploy": "npm run build && npm run git:commit:build && npm run patch && npm run publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesjianpeng/web-upload-file-lib.git"
+  },
+  "keywords": [
+    "web",
+    "html5",
+    "input"
+  ],
+  "author": "jamesjianpeng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jamesjianpeng/web-upload-file-lib/issues"
+  },
+  "homepage": "https://github.com/jamesjianpeng/web-upload-file-lib#readme",
+  "dependencies": {
+    "typescript": "^4.0.2"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  }
+}
