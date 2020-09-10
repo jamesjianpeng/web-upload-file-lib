@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
       "target": "es2015",
-      "module": "CommonJS",
+      "module": "AMD",
       "lib": [
-        "ES2015.Promise",
+        "ES2015",
         "dom"
       ],
       "declaration": true,
