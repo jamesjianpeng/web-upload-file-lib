@@ -1,27 +1,27 @@
 {
-    "compilerOptions": {
-      "target": "es2015",
-      "module": "AMD",
-      "lib": [
-        "ES2015",
-        "dom"
-      ],
-      "declaration": true,
-      "noImplicitAny": false,
-      "removeComments": true,
-      "noLib": false,
-      "skipLibCheck": true,
-      "sourceMap": false,
-      "outDir": "./dist",
-      "moduleResolution": "node",
-      "baseUrl": "./",
-      "strict": true,
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "resolveJsonModule": true,
-      "esModuleInterop": true
+  "compilerOptions": {
+    "target": "es3",
+    "lib": [
+      "ES2015",
+      "dom"
+    ],
+    "module": "ES6",
+    "declaration": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
 
-    },
-    "include": ["src/**/*", "index.ts"],
-    "exclude": ["node_modules", "dist", "example", "test", "**/*spec.ts"]
-  }
+  },
+  "include": ["src/**/*", "index.ts"],
+  "exclude": ["node_modules", "dist", "example", "test", "**/*spec.ts"]
+}
