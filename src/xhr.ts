@@ -1,7 +1,7 @@
-export const http = (options) => {
+export const request = (options) => {
   const type = options.type
   const path = options.url
-  const params = options.params
+  const data = options.data
   const headers = options.headers || {}
   const isFormData = (data) => {
       return data instanceof FormData
@@ -15,7 +15,7 @@ export const http = (options) => {
 
     const xhr = new XMLHttpRequest()
 
-    xhr.timeout = 300000
+    xhr.timeout = 150000
     xhr.onload = () => {
       /** @link {https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/readyState} */
       const status = xhr.status
@@ -41,14 +41,14 @@ export const http = (options) => {
 
     let body = null
 
-    body = isFormData(params) ? params : JSON.stringify(params)
+    body = isFormData(data) ? data : JSON.stringify(data)
     xhr.open(type, path, true)
     console.log(type, path)
     Object.keys(headers || {}).forEach((val) => {
         xhr.setRequestHeader(val, (headers || {})[val])
     })
 
-    if (!isFormData(params)) {
+    if (!isFormData(data)) {
         xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8')
     }
     xhr.send(body)

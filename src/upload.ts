@@ -1,5 +1,5 @@
 import { IUploader } from './interface'
-
+import { request } from './xhr'
 export class Uploader {
 
   public readonly options: IUploader.Options
@@ -36,8 +36,18 @@ export class Uploader {
     return Promise.resolve({})
   }
 
-  protected upload (file: File) {
-    console.log(file)
+  async upload (files: File[]) {
+    let formData = new FormData()
+    files.map((file, index) => {
+      formData.append(index.toString(), file)
+    })
+    const res = await request({
+      type: 'POST',
+      url: this.options.action,
+      data: formData
+    })
+    console.log(res)
+    return res
   }
 
   protected uploadAllSlice (file: File) {
@@ -45,21 +55,22 @@ export class Uploader {
   }
 
   protected addEvent (cb): ((e: MouseEvent) => void) {
-    return (e: any) => {
-        console.log(e)
-        const isGono = cb(e.target)
+    return async (e: any) => {
+        const files: File[] = Array.from(e.target.files)
+        const isGono = await cb(files)
+        console.log(isGono)
         if (isGono) {
             // xhr 上传
-            const file = e.target.files[0]
+            console.log('upload')
             if (false) {
-              this.uploadAllSlice(file)
+              // this.uploadAllSlice(files)
             } else {
-              this.upload(file)
+              this.upload(files)
             }
         }
         if (this.inputEl) this.inputEl.value = ''
     }
-}
+  }
 
   /**
    * @description 创建一个隐藏的 input

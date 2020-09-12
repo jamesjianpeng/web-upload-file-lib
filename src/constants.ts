@@ -1,1 +1,1 @@
-export const MDB_OPTIONS = 'TEST'
+export const OPTIONS = 'TEST'
