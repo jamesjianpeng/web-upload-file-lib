@@ -15,7 +15,7 @@ export class Uploader {
 
     this.options.el = this.options.el || document.querySelector(`#${this.options.id}`) as HTMLElement
     this.options.el.addEventListener('click', () => {
-      this.options.el!.click()
+      this.inputEl!.click()
     })
   }
 
@@ -82,6 +82,7 @@ export class Uploader {
   protected createHiddenInput (id): HTMLInputElement {
     const input = document.createElement('input')
     input.id = id
+    input.type = 'file'
     input.style.display = 'none'
     document.body.appendChild(input)
     return input
