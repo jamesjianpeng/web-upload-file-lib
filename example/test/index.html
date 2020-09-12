@@ -7,11 +7,20 @@
   <title>Document</title>
 </head>
 <body>
-  <script src="./require.js"></script>
+  <button id="upload">上传</button>
+  <script src="../../dist/web-upload-file-lib.js"></script>
   <script>
-    requirejs(["./AMD_dist/src/upload"], function(util) {
-        console.log(util)
-    });
+
+  console.log(webUploadFileLib.Uploader)
+  new webUploadFileLib.Uploader({
+    el: document.querySelector('#upload'),
+    action: 'http://localhost:3000/upload',
+    before (files) {
+      console.log(files)
+      console.log(files[0])
+      return true
+    }
+  })
   </script>
 </body>
 </html>
