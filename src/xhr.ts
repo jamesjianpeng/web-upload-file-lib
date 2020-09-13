@@ -18,24 +18,16 @@ export const request = (options) => {
     xhr.timeout = 150000
     xhr.onload = () => {
       /** @link {https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/readyState} */
-      const status = xhr.status
+      const readyState = xhr.readyState
+      const DONE = xhr.DONE
       let response: any
       try {
           response = JSON.parse(xhr.response)
       } catch (e) {
           response = xhr.response
       }
-      if (status >= 200 && status <= 300) {
-          if (response.code === 0) {
-            reslove(response.data)
-          } else {
-              console.error(`${response.data.message}`)
-              reslove(response.data)
-          }
-      } else {
-          const responseText = xhr.statusText
-          console.error(`${responseText}(${status})`)
-          reslove(responseText)
+      if (readyState === DONE) {
+        reslove(xhr)
       }
     }
 

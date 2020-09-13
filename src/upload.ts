@@ -65,7 +65,8 @@ export class Uploader {
             if (false) {
               // this.uploadAllSlice(files)
             } else {
-              this.upload(files)
+              const res: any = await this.upload(files)
+              this.options.response(res)
             }
         }
         if (this.inputEl) this.inputEl.value = ''
