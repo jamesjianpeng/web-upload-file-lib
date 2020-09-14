@@ -1,4 +1,4 @@
-export const request = (options) => {
+const request = (options) => {
   const type = options.type
   const path = options.url
   const data = options.data
@@ -46,4 +46,22 @@ export const request = (options) => {
     xhr.send(body)
   })
 
+}
+
+const uploadFormData = async (action: string, files: File[]) => {
+  let formData = new FormData()
+  files.map((file, index) => {
+    formData.append(index.toString(), file)
+  })
+  const res = await request({
+    type: 'POST',
+    url: action,
+    data: formData
+  })
+  return res
+}
+
+export {
+  request,
+  uploadFormData
 }

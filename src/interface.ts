@@ -3,7 +3,7 @@ export namespace IUploader {
     el?: HTMLElement
     id?: string
     action: string,
-    before: (file: File) => Promise<boolean>
+    before: (file: File[]) => Promise<boolean>
     response: (data: IXMLHttpRequest) => void
   }
 

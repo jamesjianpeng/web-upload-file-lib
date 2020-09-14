@@ -1,72 +1,63 @@
-import { IUploader } from './interface'
-import { request } from './xhr'
+import { IUploader } from '../interface'
+import { uploadFormData } from './xhr'
+import { getImageSize, getVideoSize } from '../helper'
 export class Uploader {
 
   public readonly options: IUploader.Options
   public readonly inputEl: HTMLInputElement | null
   public readonly eventListener: (e: any) => void
 
+  static getImageSize = getImageSize
+  static getVideoSize = getVideoSize
+
   constructor(opts: IUploader.Options) {
     this.options = opts
     this.inputEl = this.createInput(`Uploader-${new Date().getTime()}`)
 
-    this.eventListener = this.addEvent(opts.before)
+    this.eventListener = this.addEvent()
     this.inputEl.addEventListener('change', this.eventListener)
 
+    this.triggerEvent()
+  }
+
+  /**
+   * @description 触发上传组件的元素，添加 click 事件
+   */
+  protected triggerEvent () {
     this.options.el = this.options.el || document.querySelector(`#${this.options.id}`) as HTMLElement
     this.options.el.addEventListener('click', () => {
       this.inputEl!.click()
     })
   }
 
-  public async before (file: File, meta: IUploader.Meta): Promise<boolean> {
-    const res = true
-    return Promise.resolve(res)
+  public async before (files: File[], otherArg?: any): Promise<boolean> {
+    return await this.options.before(files)
   }
 
-  public async success (data: IUploader.Response): Promise<void> {
-    console.log(data)
+  public async response (data: any, otherArg?: any): Promise<void> {
+    return await this.options.response(data)
   }
 
-  protected getImageSize (file: File): Promise<IUploader.ImageMeta> {
-    return Promise.resolve({})
-  }
-
-  protected getVideoSize (file: File): Promise<IUploader.VideoMeta> {
-    return Promise.resolve({})
-  }
-
-  async upload (files: File[]) {
-    let formData = new FormData()
-    files.map((file, index) => {
-      formData.append(index.toString(), file)
-    })
-    const res = await request({
-      type: 'POST',
-      url: this.options.action,
-      data: formData
-    })
-    console.log(res)
-    return res
+  async uploadFormData (files: File[]) {
+     return await uploadFormData(this.options.action, files)
   }
 
   protected uploadAllSlice (file: File) {
 
   }
 
-  protected addEvent (cb): ((e: MouseEvent) => void) {
+  protected addEvent (): ((e: MouseEvent) => void) {
     return async (e: any) => {
         const files: File[] = Array.from(e.target.files)
-        const isGono = await cb(files)
+        const isGono = await this.before(files)
         console.log(isGono)
         if (isGono) {
             // xhr 上传
-            console.log('upload')
             if (false) {
               // this.uploadAllSlice(files)
             } else {
-              const res: any = await this.upload(files)
-              this.options.response(res)
+              const res: any = await this.uploadFormData(files)
+              this.response(res)
             }
         }
         if (this.inputEl) this.inputEl.value = ''
