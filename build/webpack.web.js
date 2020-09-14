@@ -4,13 +4,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpackConfig = {
   // mode: 'production',
   watch: true,
-  target: "web",
-  entry: resolve('index.ts'),
+  entry: {
+    'index': resolve('index.ts')
+  },
   output: {
     path: resolve('dist'),
-    filename: 'web-upload-file-lib.js',
-    library: 'webUploadFileLib', //对外暴露的属性名
-    libraryTarget:'window' // 挂载到对应的环境下 window['sunduanUtil']
+    // filename: 'web-upload-file-lib.js',
+    // library: 'webUploadFileLib', //对外暴露的属性名
+    // libraryTarget:'window' // 挂载到对应的环境下 window['sunduanUtil']
   },
   module: {
     rules: [
