@@ -29,11 +29,25 @@ export class Uploader {
       this.inputEl!.click()
     })
   }
-
+  /**
+   * @description 获取 files 对他们进行一些处理，在 before 里用于判断尺寸
+   * @param files 
+   * @param otherArg 
+   */
   public async before (files: File[], otherArg?: any): Promise<boolean> {
-    return await this.options.before(files)
+    const promiseAll = files.map(async (file: File): Promise<IUploader.IFile> => {
+      const meta = await Uploader.getImageSize<File, IUploader.ImageMeta>(file)
+      return { file, meta }
+    })
+    const filesRes: IUploader.IFile[] = await Promise.all(promiseAll)
+    return await this.options.before(filesRes)
   }
 
+  /**
+   * @description 响应内容
+   * @param data 
+   * @param otherArg 
+   */
   public async response (data: any, otherArg?: any): Promise<void> {
     return await this.options.response(data)
   }

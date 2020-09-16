@@ -3,8 +3,8 @@ export namespace IUploader {
     el?: HTMLElement
     id?: string
     action: string,
-    before: (file: File[]) => Promise<boolean>
-    response: (data: IXMLHttpRequest) => void
+    before: (file: IFile[], otherArg?: any) => Promise<boolean>
+    response: (data: IXMLHttpRequest, otherArg?: any) => void
   }
 
   export interface Response {
@@ -20,6 +20,12 @@ export namespace IUploader {
 
   export interface ImageMeta extends Meta {}
   export interface VideoMeta extends Meta {}
+
+  export interface IFile {
+    file: File
+    meta: IUploader.ImageMeta | IUploader.VideoMeta | any
+  }
+
   export interface IXMLHttpRequest {
     msCaching: string;
     onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
