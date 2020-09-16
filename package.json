@@ -5,8 +5,8 @@
   "main": "./dist",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:webpack": "node .//build/build.js",
-    "build": "rimraf ./dist && tsc",
+    "build:webpack": "node ./build/build.js",
+    "build": "rimraf ./example/test/client/src/dist && tsc",
     "patch": "npm version patch",
     "publish": "npm publish --access=public",
     "git:commit:build": "git add . && git commit -m 'build' && git push",

@@ -12,7 +12,7 @@
     "noLib": false,
     "skipLibCheck": true,
     "sourceMap": false,
-    "outDir": "./dist",
+    "outDir": "example/test/client/src/dist",
     "moduleResolution": "node",
     "baseUrl": "./",
     "strict": true,
@@ -23,5 +23,5 @@
 
   },
   "include": ["src/**/*", "index.ts"],
-  "exclude": ["node_modules", "dist", "example", "test", "**/*spec.ts"]
+  "exclude": ["node_modules", "example/test/client/src/dist", "example", "test", "**/*spec.ts"]
 }
