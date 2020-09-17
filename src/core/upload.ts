@@ -56,7 +56,11 @@ export class Uploader extends DomInput {
   }
 
   async uploadFormData (files: File[]) {
-     return await uploadFormData(this.options.action, files)
+    let formData = new FormData()
+    files.map((file, index) => {
+      formData.append(index.toString(), file)
+    })
+     return await uploadFormData(this.options.action, formData)
   }
 
   protected uploadAllSlice (file: File) {

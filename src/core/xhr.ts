@@ -48,11 +48,7 @@ const request = (options) => {
 
 }
 
-const uploadFormData = async (action: string, files: File[]) => {
-  let formData = new FormData()
-  files.map((file, index) => {
-    formData.append(index.toString(), file)
-  })
+const uploadFormData = async (action: string, formData: FormData) => {
   const res = await request({
     type: 'POST',
     url: action,
