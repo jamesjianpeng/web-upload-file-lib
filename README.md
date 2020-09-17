@@ -64,8 +64,13 @@ npm i
 npm run build
 ```
 
-## 测试
+## 开发
+自动编译打包到 /example/test/client
+```
+npm run dev
+```
 
+## 测试
 - web static server
 ```
 cd ./example/test/server
@@ -73,6 +78,7 @@ cd ./example/test/server
 npm run start
 ```
 
+- client
 ```
 cd ../client
 
