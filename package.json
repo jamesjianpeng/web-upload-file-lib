@@ -5,8 +5,11 @@
   "main": "./dist",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --config ./nodemon.json",
+    "build:dev": "rimraf ./example/test/client/src/dist && tsc",
     "build:webpack": "node ./build/build.js",
-    "build": "rimraf ./example/test/client/src/dist && tsc",
+    "build": "rimraf ./dist && tsc",
+    "nodemon:help": "nodemon --help",
     "patch": "npm version patch",
     "publish": "npm publish --access=public",
     "git:commit:build": "git add . && git commit -m 'build' && git push",
@@ -32,8 +35,10 @@
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
+    "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
     "ts-loader": "^8.0.3",
+    "ts-node-dev": "^1.0.0-pre.62",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
