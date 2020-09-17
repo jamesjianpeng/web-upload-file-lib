@@ -6,8 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --config ./nodemon.json",
-    "build:dev": "rimraf ./example/test/client/src/dist && tsc",
-    "build:webpack": "node ./build/build.js",
     "build": "rimraf ./dist && tsc",
     "nodemon:help": "nodemon --help",
     "patch": "npm version patch",
