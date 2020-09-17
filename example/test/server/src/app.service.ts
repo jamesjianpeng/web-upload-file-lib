@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit, HttpService } from '@nestjs/common';
 import { existDirSync, writeFileSync, splitFileName } from './util'
 import setting from '../settings.json'
 import path from 'path'
@@ -6,6 +6,10 @@ import moment from 'moment'
 
 @Injectable()
 export class AppService implements OnModuleInit {
+  constructor (
+    private readonly httpService: HttpService
+  ) {}
+
   onModuleInit () {
   }
 
@@ -16,6 +20,12 @@ export class AppService implements OnModuleInit {
     })
     const result = await Promise.all(promiseAll)
     return result
+  }
+
+  async getFileFuffer (url: string) {
+    const res= await this.httpService.get(url).toPromise()
+    const base64 = Buffer.isEncoding('base64')
+    console.log(base64)
   }
 
   async storageFile (file: any): Promise<boolean | { url: string, msg: string }> {
@@ -36,6 +46,8 @@ export class AppService implements OnModuleInit {
       console.log(filePath, '文件写入失败')
       result = false
     }
-    return { url:  result ? `${setting.staticHost}/${lastFileName}` : '', msg: result ? '' : '文件上传失败' }
+    const url = `${setting.staticHost}/${lastFileName}`
+    await this.getFileFuffer(url)
+    return { url:  result ? url : '', msg: result ? '' : '文件上传失败' }
   }
 }
