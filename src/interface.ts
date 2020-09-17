@@ -1,10 +1,19 @@
 export namespace IUploader {
-   export interface Options {
+   export interface Options extends DomInputOptions, BOMXhrOptions {
+    before: (file: IFile[], otherArg?: any) => Promise<boolean>
+    progress: (arg: any) => Promise<boolean>
+    response: (data: IXMLHttpRequest, otherArg?: any) => void
+  }
+
+  export interface DomInputOptions {
     el?: HTMLElement
     id?: string
+    inputEl?: HTMLInputElement
+    inputEventListener?: (e: Event) => void
+    triggerEventListener?: (e: MouseEvent) => void
+  }
+  export interface BOMXhrOptions {
     action: string,
-    before: (file: IFile[], otherArg?: any) => Promise<boolean>
-    response: (data: IXMLHttpRequest, otherArg?: any) => void
   }
 
   export interface Response {
