@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:webpack": "node ./build/build.js"
+    "build:webpack": "node ./build/build.js",
+    "dev": "node ./build/dev.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,12 @@
     "@babel/preset-env": "^7.11.5",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.1.0",
-    "html-webpack-plugin": "^4.4.1"
+    "html-webpack-plugin": "^4.4.1",
+    "webpack-merge": "^5.1.4",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "install": "^0.13.0",
+    "npm": "^6.14.8"
   }
 }
