@@ -16,6 +16,12 @@ export namespace IUploader {
     action: string,
   }
 
+  export interface ShardOptions {
+    file: File,
+    size: number,
+    oneSlice: number
+  }
+
   export interface Response {
     msg: string,
     code: number
