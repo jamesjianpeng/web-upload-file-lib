@@ -1,9 +1,8 @@
 import { IUploader } from "src/interface";
 
-const slice = (options: IUploader.ShardOptions) => {
+const slice = (file: File, options: IUploader.ShardOptions) => {
     const oneSlice = options.oneSlice || 10 * 1024 * 1024 // 5M
-    const file: File = options.file
-    const name = file.name + '__'+ new Date().getTime()
+    const name = file.name
     // 根据每份大小拆分的所有份数
     const createFileChunk = function (file: File, size) {
         const fileChunkList: {file: Blob}[] = [];
@@ -28,8 +27,8 @@ const slice = (options: IUploader.ShardOptions) => {
       }
     }
     const fileChunkList = createFileChunk(file, oneSlice)
-    const upladFormDatas = createFormDataList(fileChunkList)
-    return upladFormDatas
+    const uploadFormDatas = createFormDataList(fileChunkList)
+    return uploadFormDatas
 }
 
 export {

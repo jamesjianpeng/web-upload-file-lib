@@ -1,5 +1,5 @@
 export namespace IUploader {
-   export interface Options extends DomInputOptions, BOMXhrOptions {
+   export interface Options extends DomInputOptions, BOMXhrOptions, ShardOptions {
     before: (file: IFile[], otherArg?: any) => Promise<boolean>
     progress: (arg: any) => Promise<boolean>
     response: (data: IXMLHttpRequest, otherArg?: any) => void
@@ -12,14 +12,12 @@ export namespace IUploader {
     inputEventListener?: (e: Event) => void
     triggerEventListener?: (e: MouseEvent) => void
   }
-  export interface BOMXhrOptions {
+  export interface BOMXhrOptions extends ShardOptions {
     action: string,
   }
 
   export interface ShardOptions {
-    file: File,
-    size: number,
-    oneSlice: number
+    oneSlice?: number
   }
 
   export interface Response {
