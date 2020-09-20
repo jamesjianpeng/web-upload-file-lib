@@ -1,6 +1,7 @@
 {
     "ignore": ["build", "example/*", "test/*", "docs/*"],
-    "delay": "2500",
+    "delay": "500",
     "watch": ["./index.ts", "./src/*"],
-    "exec": ["npm run build:dev"]
+    "exec": ["npm run build:dev"],
+    "ext": "ts, json"
 }
