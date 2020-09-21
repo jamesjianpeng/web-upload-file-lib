@@ -15,4 +15,5 @@ exports.devScript = function(devConf) {
     const compiler = webpack(devConf);
     new webpackDevServer(compiler, devConf.devServer)
       .listen(devConf.devServer.port);
+    console.log(`http://${devConf.devServer.host}:${devConf.devServer.port}`)
 }
