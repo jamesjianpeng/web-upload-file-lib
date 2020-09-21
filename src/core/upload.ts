@@ -40,7 +40,7 @@ export class Uploader extends DomInput {
    */
   async shardFileUpload (file: File) {
     const uploadFormDatas = slice(file, this.options)
-    const items =await this.promiseAllShardFile(uploadFormDatas)
+    const items =await this.uploadShardFile(uploadFormDatas)
     console.log(items)
   }
 
@@ -48,11 +48,42 @@ export class Uploader extends DomInput {
    * @description 测试上传
    * @param uploadFormDatas
    */
-  async promiseAllShardFile (uploadFormDatas) {
-    const promiseAll = uploadFormDatas.formDatas.map(async (item: any) => {
-      return await uploadFormData(this.options.action, item)
-    })
-    return await Promise.all(promiseAll)
+  async uploadShardFile (uploadFormDatas) {
+    const uploadIndex = 0
+    const loopUpload = async (index: number): Promise<any> => {
+      const item: any = uploadFormDatas.formDatas[index]
+      const res = await uploadFormData(this.options.action, item)
+      await this.progress(res, { uploadFormDatas, index })
+      const nextUploadIndex = index + 1
+      if (uploadFormDatas.formDatas.length > nextUploadIndex) {
+        return await loopUpload(nextUploadIndex)
+      } else {
+        return Promise.resolve(null)
+      }
+    }
+    await loopUpload(uploadIndex)
+  }
+
+  /**
+   * @description 在上传完所有的分片之后，在进行调用合并所有链接处理方法之前的处理程序
+   */
+  async mergeShardFileBefore () {
+
+  }
+
+  /**
+   * @description 测试上传
+   * @param uploadFormDatas
+   */
+  async mergeShardFile (urls: string[]) {
+    console.log(urls)
+  }
+
+  /**
+   * @description 合并所有的分片链接的结果
+   */
+  async mergeShardFileResponse () {
+
   }
 
   /**
@@ -70,6 +101,16 @@ export class Uploader extends DomInput {
   }
 
   /**
+   * @description 进度显示，主要针对分片上传
+   * @param data
+   * @param otherArg
+   */
+  public async progress (data: any, otherArg?: any): Promise<any> {
+    return await this.options.progress(data, otherArg)
+  }
+
+
+  /**
    * @description 响应内容
    * @param data
    * @param otherArg
@@ -78,6 +119,9 @@ export class Uploader extends DomInput {
     return await this.options.response(data)
   }
 
+  /**
+   * @description 单个文件上传
+   */
   async uploadFormData (files: File[]) {
     let formData = new FormData()
     files.map((file, index) => {

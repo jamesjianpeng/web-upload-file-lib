@@ -7,7 +7,14 @@ new Uploader({
     console.log(files)
     return true
   },
-  response (xhr) {
+  progress (xhr, arg) {
+    console.log('start')
     console.log(xhr)
+    console.log(arg)
+    console.log('end')
+  },
+  response (xhr, arg) {
+    console.log(xhr)
+    console.log(arg)
   }
 })
