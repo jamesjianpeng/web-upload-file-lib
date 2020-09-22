@@ -1,3 +1,5 @@
+import { IUploader } from "src/interface"
+
 const request = (options) => {
   const type = options.type
   const path = options.url

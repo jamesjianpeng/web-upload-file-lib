@@ -25,7 +25,6 @@ export class Uploader extends DomInput {
             const oneSlice = this.options.oneSlice
             console.log(oneSlice)
             if (files.length === 1 && oneSlice && files[0].size > oneSlice) {
-              // this.uploadAllSlice(files)
               await this.shardFileUpload(files[0])
             } else {
               const res: any = await this.uploadFormData(files)
@@ -39,44 +38,56 @@ export class Uploader extends DomInput {
    * @param file
    */
   async shardFileUpload (file: File) {
-    const uploadFormDatas = slice(file, this.options)
-    const items =await this.uploadShardFile(uploadFormDatas)
-    console.log(items)
+    const uploadFormDatas: IUploader.ShardFormData = slice(file, this.options)
+    const isGono = await this.mergeShardFileBefore(uploadFormDatas)
+    if (isGono) {
+      const items =await this.uploadShardFile(uploadFormDatas)
+      console.log(items)
+    }
   }
 
   /**
    * @description 测试上传
    * @param uploadFormDatas
    */
-  async uploadShardFile (uploadFormDatas) {
+  async uploadShardFile (uploadFormDatas: IUploader.ShardFormData) {
     const uploadIndex = 0
-    const loopUpload = async (index: number): Promise<any> => {
+    const urls: any[] = []
+    const loopUpload = async (index: number, urls: string[]): Promise<any> => {
       const item: any = uploadFormDatas.formDatas[index]
-      const res = await uploadFormData(this.options.action, item)
-      await this.progress(res, { uploadFormDatas, index })
       const nextUploadIndex = index + 1
-      if (uploadFormDatas.formDatas.length > nextUploadIndex) {
-        return await loopUpload(nextUploadIndex)
+      const done = uploadFormDatas.formDatas.length <= nextUploadIndex
+      const res: any = await uploadFormData(this.options.action, item)
+      await this.progress(res, { uploadFormDatas, index, done })
+      urls.push(res.response)
+      if (done) {
+        return await this.mergeShardFile(urls)
       } else {
-        return Promise.resolve(null)
+        return await loopUpload(nextUploadIndex, urls)
       }
     }
-    await loopUpload(uploadIndex)
+    await loopUpload(uploadIndex, urls)
   }
 
   /**
    * @description 在上传完所有的分片之后，在进行调用合并所有链接处理方法之前的处理程序
    */
-  async mergeShardFileBefore () {
-
+  async mergeShardFileBefore (uploadFormDatas: IUploader.ShardFormData): Promise<boolean> {
+    let res = false
+    if (typeof this.options.mergeShardFileBefore === 'function') {
+      res = await this.options.mergeShardFileBefore(uploadFormDatas)
+    }
+    return res
   }
 
   /**
    * @description 测试上传
    * @param uploadFormDatas
    */
-  async mergeShardFile (urls: string[]) {
-    console.log(urls)
+  async mergeShardFile (urls: any[]) {
+    if (typeof this.options.mergeShardFile === 'function') {
+      await this.options.mergeShardFile(urls)
+    }
   }
 
   /**

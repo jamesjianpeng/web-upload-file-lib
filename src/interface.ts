@@ -1,7 +1,9 @@
 export namespace IUploader {
    export interface Options extends DomInputOptions, BOMXhrOptions, ShardOptions {
     before: (file: IFile[], otherArg?: any) => Promise<boolean>
+    mergeShardFileBefore?: (uploadFormDatas: ShardFormData, otherArg?: any) => Promise<boolean>
     progress: (arg: any, otherArg?: any) => Promise<boolean>
+    mergeShardFile?: (urls: any[], otherArg?: any) => Promise<boolean>
     response: (data: IXMLHttpRequest, otherArg?: any) => void
   }
 
@@ -38,6 +40,10 @@ export namespace IUploader {
   export interface IFile {
     file: File
     meta: IUploader.ImageMeta | IUploader.VideoMeta | any
+  }
+  export interface ShardFormData {
+    name: string
+    formDatas: Blob[]
   }
 
   export interface IXMLHttpRequest {
