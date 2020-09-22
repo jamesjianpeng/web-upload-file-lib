@@ -1,4 +1,4 @@
-import { Controller, Post, Get, UseInterceptors, UploadedFiles } from '@nestjs/common';
+import { Controller, Post, Get, Body, UseInterceptors, UploadedFiles } from '@nestjs/common';
 import { AnyFilesInterceptor } from '@nestjs/platform-express'
 import { AppService } from './app.service';
 
@@ -10,6 +10,14 @@ export class AppController {
   @UseInterceptors(AnyFilesInterceptor())
   upload(@UploadedFiles() data: any) {
     return this.appService.upload(data);
+  }
+
+  @Post('mergeShardFile')
+  @UseInterceptors(AnyFilesInterceptor())
+  mergeShardFile(
+    @Body() data: { urls: string[], name: string, oneSlice: number }
+  ) {
+    return this.appService.mergeShardFile(data);
   }
 
   @Get()
