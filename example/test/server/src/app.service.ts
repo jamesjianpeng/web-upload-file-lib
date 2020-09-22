@@ -3,7 +3,8 @@ import { existDirSync, writeFileSync, splitFileName } from './util'
 import setting from '../settings.json'
 import path from 'path'
 import moment from 'moment'
-
+import fs from 'fs'
+let globalBuffer: Buffer
 @Injectable()
 export class AppService implements OnModuleInit {
   constructor (
@@ -22,10 +23,19 @@ export class AppService implements OnModuleInit {
     return result
   }
 
+  async mergeShardFile (data: { urls: string[], name: string, oneSlice: number }) {
+    const { urls, name, oneSlice } = data
+    const promiseAll = urls.map(async (url, index) => {
+      const buffer = await this.getFileFuffer(url)
+    })
+    const list = await Promise.all(promiseAll)
+    return urls
+  }
+
   async getFileFuffer (url: string) {
     const res= await this.httpService.get(url).toPromise()
-    const base64 = Buffer.isEncoding('base64')
-    console.log(base64)
+    const buffer = Buffer.from(res.data, 'base64')
+    return buffer
   }
 
   async storageFile (file: any): Promise<boolean | { url: string, msg: string }> {
@@ -47,7 +57,6 @@ export class AppService implements OnModuleInit {
       result = false
     }
     const url = `${setting.staticHost}/${lastFileName}`
-    await this.getFileFuffer(url)
     return { url:  result ? url : '', msg: result ? '' : '文件上传失败' }
   }
 }

@@ -39,7 +39,7 @@ export class Uploader extends DomInput {
    */
   async shardFileUpload (file: File) {
     const uploadFormDatas: IUploader.ShardFormData = slice(file, this.options)
-    const isGono = await this.mergeShardFileBefore(uploadFormDatas)
+    const isGono = await this.uploadShardFileBefore(uploadFormDatas)
     if (isGono) {
       const items =await this.uploadShardFile(uploadFormDatas)
       console.log(items)
@@ -58,10 +58,9 @@ export class Uploader extends DomInput {
       const nextUploadIndex = index + 1
       const done = uploadFormDatas.formDatas.length <= nextUploadIndex
       const res: any = await uploadFormData(this.options.action, item)
-      await this.progress(res, { uploadFormDatas, index, done })
-      urls.push(res.response)
+      await this.progress(res, { uploadFormDatas, index, done, shard: true })
       if (done) {
-        return await this.mergeShardFile(urls)
+        return await this.mergeShardFileBefore({ uploadFormDatas, index, done, shard: true })
       } else {
         return await loopUpload(nextUploadIndex, urls)
       }
@@ -72,22 +71,23 @@ export class Uploader extends DomInput {
   /**
    * @description 在上传完所有的分片之后，在进行调用合并所有链接处理方法之前的处理程序
    */
-  async mergeShardFileBefore (uploadFormDatas: IUploader.ShardFormData): Promise<boolean> {
+  async mergeShardFileBefore (thisArg?: any): Promise<boolean> {
     let res = false
     if (typeof this.options.mergeShardFileBefore === 'function') {
-      res = await this.options.mergeShardFileBefore(uploadFormDatas)
+      res = await this.options.mergeShardFileBefore(thisArg)
     }
     return res
   }
 
   /**
-   * @description 测试上传
-   * @param uploadFormDatas
+   * @description 在上传完所有的分片之后，在进行调用合并所有链接处理方法之前的处理程序
    */
-  async mergeShardFile (urls: any[]) {
-    if (typeof this.options.mergeShardFile === 'function') {
-      await this.options.mergeShardFile(urls)
+  async uploadShardFileBefore (uploadFormDatas: IUploader.ShardFormData): Promise<boolean> {
+    let res = false
+    if (typeof this.options.uploadShardFileBefore === 'function') {
+      res = await this.options.uploadShardFileBefore(uploadFormDatas)
     }
+    return res
   }
 
   /**
