@@ -1,6 +1,6 @@
 {
   "name": "@smartblog/web-upload-file-lib",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "web html5 input file",
   "main": "./dist",
   "scripts": {
