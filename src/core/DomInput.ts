@@ -1,11 +1,15 @@
 import { IUploader } from '../interface'
+import { _createInputProps, TAG, STYLE } from '../config'
 
 export class DomInput {
   protected readonly DomInputoptions: IUploader.DomInputOptions
   
-  constructor(DomInputoptions) {
+  constructor(DomInputoptions: IUploader.DomInputOptions) {
     this.DomInputoptions = DomInputoptions
-    this.DomInputoptions.inputEl = this.createInput(`Uploader-${new Date().getTime()}`)
+    this.DomInputoptions.inputProps = Object.assign(_createInputProps, DomInputoptions.inputProps || {})
+    this.DomInputoptions.tag = TAG
+    this.DomInputoptions.style = STYLE
+    this.DomInputoptions.inputEl = this.createInput(this.DomInputoptions)
 
     this.triggerEvent()
   }
@@ -14,6 +18,7 @@ export class DomInput {
    * @description 触发上传组件的元素，添加 click 事件
    */
   protected triggerEvent () {
+
     this.DomInputoptions.el = this.DomInputoptions.el || document.querySelector(`#${this.DomInputoptions.id}`) as HTMLElement
     this.DomInputoptions.triggerEventListener = (e: MouseEvent) => {
       this.DomInputoptions.inputEl!.click()
@@ -41,12 +46,12 @@ export class DomInput {
    * @description 创建一个隐藏的 input
    * @param id
    */
-  protected createInput (id = 'Uploader'): HTMLInputElement {
-    let el: HTMLInputElement = document.getElementById(`#${id}`) as HTMLInputElement
+  protected createInput (domInputoptions: IUploader.DomInputOptions): HTMLInputElement {
+    let el: HTMLInputElement = document.getElementById(`#${domInputoptions.inputProps?.id}`) as HTMLInputElement
     if (el) {
-      el = el instanceof HTMLInputElement ? el : this.createHiddenInput(id)
+      el = el instanceof HTMLInputElement ? el : this.createHiddenInput(domInputoptions)
     } else {
-      el = this.createHiddenInput(id)
+      el = this.createHiddenInput(domInputoptions)
     }
     return el
   }
@@ -55,11 +60,12 @@ export class DomInput {
    * @description 创建隐藏的 input 的具体方法
    * @param id
    */
-  protected createHiddenInput (id): HTMLInputElement {
-    const input = document.createElement('input')
-    input.id = id
-    input.type = 'file'
-    input.style.display = 'none'
+  protected createHiddenInput (DomInputOptions: IUploader.DomInputOptions): HTMLInputElement {
+    const input = document.createElement(DomInputOptions.tag) as HTMLInputElement
+    input.id = DomInputOptions.inputProps?.id!
+    input.type = DomInputOptions.inputProps?.type!
+    input.multiple = DomInputOptions.inputProps?.multiple!
+    input.style.cssText = DomInputOptions.style
     document.body.appendChild(input)
     return input
   }
