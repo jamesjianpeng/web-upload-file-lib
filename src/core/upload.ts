@@ -11,8 +11,8 @@ export class Uploader extends DomInput {
 
   constructor(opts: IUploader.Options) {
     super(opts)
-    this.options = { ...opts, ...this.DomInputoptions }
-    this.mountedEvent(this.inputEvent.bind(this))
+    this.options = { ...opts }
+    this.mountedInputEvent(this.inputEvent.bind(this))
   }
 
   private async inputEvent (e: any) {
