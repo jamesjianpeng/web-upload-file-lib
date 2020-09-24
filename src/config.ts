@@ -23,6 +23,19 @@ const MIME_TYPE = {
   "mp4": "video/mp4"
 }
 
+const _createInputProps = (() => ({
+  type: 'file',
+  id: 'input_props-' + new Date().getTime(),
+  multiple: false
+}))()
+
+const TAG = 'input'
+
+const STYLE = 'display: none;'
+
 export {
-  MIME_TYPE
+  MIME_TYPE,
+  TAG,
+  STYLE,
+  _createInputProps,
 }
