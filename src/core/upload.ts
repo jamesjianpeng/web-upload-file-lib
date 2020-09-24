@@ -6,13 +6,12 @@ export class Uploader extends DomInput {
 
   public readonly options: IUploader.Options
 
-
   static getImageSize = getImageSize
   static getVideoSize = getVideoSize
 
   constructor(opts: IUploader.Options) {
-    super({ el: opts.el, id: opts.id })
-    this.options = opts
+    super(opts)
+    this.options = { ...opts, ...this.DomInputoptions }
     this.mountedEvent(this.inputEvent.bind(this))
   }
 
