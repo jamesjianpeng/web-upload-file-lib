@@ -7,11 +7,11 @@ export namespace IUploader {
 
   export interface DomInputOptions {
     // trigger el
-    el?: HTMLElement
+    el?: HTMLElement | null
     id?: string
 
     // input attribute
-    inputEl?: HTMLInputElement
+    inputEl?: HTMLInputElement | null
     tag: string,
     style: string,
     inputProps?: {
@@ -19,8 +19,8 @@ export namespace IUploader {
       id?: string,
       multiple?: boolean
     },
-    inputEventListener?: (e: Event) => void
-    triggerEventListener?: (e: MouseEvent) => void
+    inputEventListener?: ((e: Event) => void) | null
+    triggerEventListener?: ((e: MouseEvent) => void) | null
   }
   export interface BOMXhrOptions extends ShardOptions {
     action: string
