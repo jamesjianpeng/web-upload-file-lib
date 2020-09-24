@@ -23,19 +23,22 @@ const MIME_TYPE = {
   "mp4": "video/mp4"
 }
 
-const _createInputProps = (() => ({
+const _createInputProps = () => ({
   type: 'file',
-  id: 'input_props-' + new Date().getTime(),
+  id: `web-upload-file-lib_input-props-v0.0.4_${new Date().getTime()}`,
   multiple: false
-}))()
+})
 
 const TAG = 'input'
-
 const STYLE = 'display: none;'
+const CHANGE = 'change'
+const CLICK = 'click'
 
 export {
   MIME_TYPE,
   TAG,
   STYLE,
+  CHANGE,
+  CLICK,
   _createInputProps,
 }
