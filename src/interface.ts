@@ -6,9 +6,19 @@ export namespace IUploader {
   }
 
   export interface DomInputOptions {
+    // trigger el
     el?: HTMLElement
     id?: string
+
+    // input attribute
     inputEl?: HTMLInputElement
+    tag: string,
+    style: string,
+    inputProps?: {
+      type?: 'file',
+      id?: string,
+      multiple?: boolean
+    },
     inputEventListener?: (e: Event) => void
     triggerEventListener?: (e: MouseEvent) => void
   }
