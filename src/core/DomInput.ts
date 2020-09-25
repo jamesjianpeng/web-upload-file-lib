@@ -78,11 +78,11 @@ export class DomInput {
    * @param id
    */
   protected createHiddenInput (DomInputOptions: IUploader.DomInputOptions): HTMLInputElement {
-    const input = document.createElement(DomInputOptions.tag) as HTMLInputElement
+    const input = document.createElement(DomInputOptions.tag!) as HTMLInputElement
     input.id = DomInputOptions.inputProps?.id!
     input.type = DomInputOptions.inputProps?.type!
     input.multiple = DomInputOptions.inputProps?.multiple!
-    input.style.cssText = DomInputOptions.style
+    input.style.cssText = DomInputOptions.style!
     document.body.appendChild(input)
     return input
   }
