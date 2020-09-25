@@ -1,9 +1,4 @@
 /node_modules
 /example
-/tslint.json
-/tsconfig.json
-/tsconfig.dev.json
-/index.ts
-/src
 /nodemon.json
 /build
