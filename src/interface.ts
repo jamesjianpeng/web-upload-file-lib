@@ -12,8 +12,8 @@ export namespace IUploader {
 
     // input attribute
     inputEl?: HTMLInputElement | null
-    tag: string,
-    style: string,
+    tag?: string,
+    style?: string,
     inputProps?: {
       type?: 'file',
       id?: string,
