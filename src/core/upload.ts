@@ -46,7 +46,9 @@ export class Uploader extends DomInput {
    * @param otherArg
    */
   public async progress (data: any, otherArg?: any): Promise<any> {
-    return await this.options.progress(data, otherArg)
+    if (typeof this.options.progress === 'function') {
+      await this.options.progress(data, otherArg)
+    }
   }
 
 

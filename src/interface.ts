@@ -1,7 +1,7 @@
 export namespace IUploader {
    export interface Options extends DomInputOptions, BOMXhrOptions, ShardOptions {
     before: (file: IFile[], otherArg?: any) => Promise<boolean>
-    progress: (arg: any, otherArg?: any) => void
+    progress?: (arg: any, otherArg?: any) => void
     response: (data: IXMLHttpRequest, otherArg?: any) => void
   }
 
