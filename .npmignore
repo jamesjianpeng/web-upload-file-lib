@@ -3,6 +3,7 @@
 /nodemon.json
 /build
 /tslint.json
+/tsconfig.json
 /tsconfig.dev.json
 /nodemon.json
 /index.ts
