@@ -5,8 +5,8 @@ const request = (options) => {
   const path = options.url
   const data = options.data
   const headers = options.headers || {}
-  const isFormData = (data) => {
-      return data instanceof FormData
+  const isFormData = (opt) => {
+      return opt instanceof FormData
   }
 
 
