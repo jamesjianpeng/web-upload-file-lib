@@ -5,6 +5,7 @@
   "main": "./dist",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint --project tsconfig.json",
     "dev": "nodemon --config ./nodemon.json",
     "build:dev": "rimraf ./example/test/client/src/dist && tsc --project tsconfig.dev.json",
     "build": "rimraf ./dist && tsc --project tsconfig.json",
