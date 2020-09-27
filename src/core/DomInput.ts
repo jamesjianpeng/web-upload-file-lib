@@ -3,7 +3,7 @@ import { _createInputProps, TAG, STYLE, CHANGE, CLICK } from '../config'
 
 export class DomInput {
   protected readonly DomInputoptions: IUploader.DomInputOptions
-  
+
   constructor(DomInputoptions: IUploader.DomInputOptions) {
     this.DomInputoptions = DomInputoptions
     this.DomInputoptions.inputProps = Object.assign(_createInputProps(), DomInputoptions.inputProps || {})
@@ -26,8 +26,8 @@ export class DomInput {
   }
 
   /**
-   * @description input 挂载 change 事件的时候，需要插入业务处理程序，需要传入一个回调函数，这个函数的调用时机是在 DOMInput 这个类初始化完成之后 upload 子类进行调用 
-   * @param cb 
+   * @description input 挂载 change 事件的时候，需要插入业务处理程序，需要传入一个回调函数，这个函数的调用时机是在 DOMInput 这个类初始化完成之后 upload 子类进行调用
+   * @param cb
    */
   protected mountedInputEvent (cb: (e: any) => void) {
     this.DomInputoptions.inputEventListener = this.addInputEvent(cb)
@@ -56,7 +56,7 @@ export class DomInput {
     }
   }
 
-    /**
+  /**
    * @description 创建一个隐藏的 input
    * @param id
    */

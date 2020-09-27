@@ -65,7 +65,7 @@ export class Uploader extends DomInput {
    * @description 单个文件上传
    */
   async uploadFormData (files: File[]) {
-    let formData = new FormData()
+    const formData = new FormData()
     files.map((file, index) => {
       formData.append(index.toString(), file)
     })

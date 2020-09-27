@@ -1,7 +1,7 @@
 {
     "ignore": ["build", "example/*", "test/*", "docs/*"],
     "delay": "500",
-    "watch": ["./index.ts", "./src/*", "./tsconfig.dev.json", "./tsconfig.json"],
-    "exec": ["npm run build:dev"],
+    "watch": ["./index.ts", "./src/*", "./tsconfig.dev.json", "./tsconfig.json", "./tsling.json"],
+    "exec": ["npm run lint && npm run build:dev"],
     "ext": "ts, json"
 }

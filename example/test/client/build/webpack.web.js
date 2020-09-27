@@ -1,5 +1,4 @@
 const { resolve } = require('./helper')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const webpackConfig = {
@@ -29,7 +28,6 @@ const webpackConfig = {
     extensions: [ '.js' ]
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin(
       {
         filename: 'index.html',
