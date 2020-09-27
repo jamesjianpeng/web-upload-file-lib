@@ -11,7 +11,8 @@
     "build": "rimraf ./dist && tsc --project tsconfig.json",
     "nodemon:help": "nodemon --help",
     "patch": "npm version patch",
-    "publish": "npm publish --access=public",
+    "publish:organization": "npm publish --access=public",
+    "publish": "npm publish",
     "git:commit:build": "git add . && git commit -m 'build' && git push",
     "deploy": "npm run build && npm run git:commit:build && npm run patch && npm run publish"
   },
