@@ -3,3 +3,4 @@
 /example/**/dist
 /example/**/static
 /dist
+/package-lock.json
