@@ -1,5 +1,5 @@
 import { IUploader } from '../interface'
-import { uploadFormData } from './xhr'
+import { uploadFormData } from './BomXhr'
 import { getImageSize, getVideoSize } from '../helper'
 import { DomInput } from './DomInput'
 export class Uploader extends DomInput {
