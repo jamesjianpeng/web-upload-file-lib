@@ -1,10 +1,12 @@
 # web-upload-file-lib
 
 ### 这份设计图是根据下面的几个思想演化出来
+
 1. 自上而下的分层设计
 2. 关注模块的分离点，结合自己的需要进行合理的分离
 
 ### 这个库存在的目的
+
 1. 易用
 2. 可扩展
 3. 可维护
@@ -58,6 +60,7 @@
 ```
 
 ## 准备&打包
+
 ```
 npm i
 
@@ -65,20 +68,25 @@ npm run build
 ```
 
 ## 开发
+
 自动编译打包到 /example/test/client
+
 ```
 npm run dev
 ```
 
 ## 测试
-- web static server
+
+-   web static server
+
 ```
 cd ./example/test/server
 
 npm run start
 ```
 
-- client
+-   client
+
 ```
 cd ../client
 

@@ -1,1 +1,1 @@
-export * from './core/Upload'
+export * from "./core/Upload";

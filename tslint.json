@@ -1,40 +1,25 @@
 {
     "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
-    ],
+    "extends": ["tslint:recommended"],
     "jsRules": {},
     "rules": {
-      "no-console": false,
-      "no-namespace": false,
-      "no-empty-interface": false,
-      "semicolon": [true, "always"],
-      "no-var-keyword": true,
-      "no-unused-variable": [
-          true,
-          {
-              "ignore-pattern": "^_"
-          }
-      ],
-      "no-consecutive-blank-lines": [
-        true,
-        1
-      ],
-      "comment-format": [
-        true,
-        "check-space"
-      ],
-      "indent": [
-          true,
-          "space",
-          4
-      ],
-      "no-eval": true,
-      "no-internal-module": true
+        "no-console": false,
+        "no-namespace": false,
+        "no-empty-interface": false,
+        "semicolon": [true, "always"],
+        "no-var-keyword": true,
+        "no-unused-variable": [
+            true,
+            {
+                "ignore-pattern": "^_"
+            }
+        ],
+        "no-consecutive-blank-lines": [true, 1],
+        "comment-format": [true, "check-space"],
+        "indent": [true, "space", 4],
+        "no-eval": true,
+        "no-internal-module": true
     },
     "rulesDirectory": [],
-    "triple-equals": [
-      true,
-      "allow-null-check"
-    ]
+    "triple-equals": [true, "allow-null-check"]
 }

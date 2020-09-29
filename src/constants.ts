@@ -1,1 +1,1 @@
-export const OPTIONS = 'TEST'
+export const OPTIONS = "TEST";
