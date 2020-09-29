@@ -1,50 +1,54 @@
 {
-  "name": "@smartblog/web-upload-file-lib",
-  "version": "0.5.0",
-  "description": "web html5 input file",
-  "main": "./dist",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint:fix": "node_modules/.bin/tslint --project tsconfig.json --fix -t verbose",
-    "lint": "npm run lint:fix",
-    "rm:client:dist": "rimraf ./example/test/client/src/dist",
-    "tsc:dev": "node_modules/.bin/tsc --project tsconfig.dev.json",
-    "build:dev": "npm run rm:client:dist && npm run tsc:dev",
-    "dev": "nodemon --config ./nodemon.json",
-    "rm:dist": "rimraf ./dist",
-    "tsc:prd": "node_modules/.bin/tsc --project tsconfig.json",
-    "build": "npm run lint && npm run rm:dist && npm run tsc:prd",
-    "nodemon:help": "nodemon --help",
-    "patch": "npm version patch",
-    "publish:organization": "npm publish --access=public",
-    "publish": "npm publish",
-    "git:commit:build": "git add . && git commit -m 'build' && git push",
-    "deploy": "npm run build && npm run git:commit:build && npm run patch && npm run publish"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jamesjianpeng/web-upload-file-lib.git"
-  },
-  "keywords": [
-    "web",
-    "html5",
-    "input"
-  ],
-  "author": "jamesjianpeng",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jamesjianpeng/web-upload-file-lib/issues"
-  },
-  "homepage": "https://github.com/jamesjianpeng/web-upload-file-lib#readme",
-  "dependencies": {
-    "typescript": "^4.0.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.4",
-    "rimraf": "^3.0.2",
-    "tslint": "^6.1.3"
-  },
-  "directories": {
-    "example": "example"
-  }
+    "name": "@smartblog/web-upload-file-lib",
+    "version": "0.5.0",
+    "description": "web html5 input file",
+    "main": "./dist",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint:test": "node_modules/.bin/tslint --project tsconfig.json",
+        "lint:fix": "node_modules/.bin/tslint --project tsconfig.json --fix -t verbose",
+        "lint": "npm run lint:fix",
+        "prettier": "node_modules/.bin/prettier --config .prettierrc.json --write . \"src/**/*.ts\" --ignore-path \".prettierignore/\" ",
+        "rm:client:dist": "rimraf ./example/test/client/src/dist",
+        "tsc:dev": "node_modules/.bin/tsc --project tsconfig.dev.json",
+        "build:dev": "npm run rm:client:dist && npm run tsc:dev",
+        "build:dev:nodemon": "npm run lint && npm run build:dev",
+        "dev": "nodemon --config ./nodemon.json",
+        "rm:dist": "rimraf ./dist",
+        "tsc:prd": "node_modules/.bin/tsc --project tsconfig.json",
+        "build": "npm run lint && npm run prettier && npm run rm:dist && npm run tsc:prd",
+        "nodemon:help": "nodemon --help",
+        "patch": "npm version patch",
+        "publish:organization": "npm publish --access=public",
+        "publish": "npm publish",
+        "git:commit:build": "git add . && git commit -m 'build' && git push",
+        "deploy": "npm run build && npm run git:commit:build && npm run patch && npm run publish"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jamesjianpeng/web-upload-file-lib.git"
+    },
+    "keywords": [
+        "web",
+        "html5",
+        "input"
+    ],
+    "author": "jamesjianpeng",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/jamesjianpeng/web-upload-file-lib/issues"
+    },
+    "homepage": "https://github.com/jamesjianpeng/web-upload-file-lib#readme",
+    "dependencies": {
+        "typescript": "^4.0.2"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.4",
+        "prettier": "2.1.2",
+        "rimraf": "^3.0.2",
+        "tslint": "^6.1.3"
+    },
+    "directories": {
+        "example": "example"
+    }
 }
