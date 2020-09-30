@@ -1,11 +1,27 @@
+# node_modules
 /node_modules
+
+# test
 /example
+
+# build
 /nodemon.json
 /build
 /tslint.json
 /tsconfig.json
 /tsconfig.dev.json
 /nodemon.json
+
+# code
 /index.ts
 /src
+
+# license
 /LICENSE
+
+#ide
+/.vscode
+
+# prettier
+/.prettierrc.json
+/.prettierignore
