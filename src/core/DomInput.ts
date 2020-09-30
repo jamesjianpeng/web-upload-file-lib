@@ -56,7 +56,9 @@ export class DomInput {
             CHANGE,
             this.DomInputoptions.inputEventListener!
         );
-        const hasInputEl = document.body.contains(this.DomInputoptions.inputEl!);
+        const hasInputEl = document.body.contains(
+            this.DomInputoptions.inputEl!
+        );
         if (hasInputEl) {
             document.body.removeChild(this.DomInputoptions.inputEl!);
         }

@@ -18,9 +18,9 @@ export namespace IUploader {
         tag?: string;
         style?: string;
         inputProps?: {
-            type?: "file"
-            id?: string
-            multiple?: boolean
+            type?: "file";
+            id?: string;
+            multiple?: boolean;
         };
         inputEventListener?: ((e: Event) => void) | null;
         triggerEventListener?: ((e: MouseEvent) => void) | null;
