@@ -1,6 +1,11 @@
 import { IUploader } from "../interface";
 import { uploadFormData } from "./BomXhr";
-import { getImageSize, getVideoSize, isFileImage, getFileMeta } from "../helper";
+import {
+    getImageSize,
+    getVideoSize,
+    isFileImage,
+    getFileMeta,
+} from "../helper";
 import { DomInput } from "./DomInput";
 export class Uploader extends DomInput {
     public readonly options: IUploader.Options;
@@ -24,7 +29,10 @@ export class Uploader extends DomInput {
         const isGono = await this.before(files);
         if (isGono) {
             // xhr 上传
-            const res: any = await Uploader.uploadFormData(this.options.action, files);
+            const res: any = await Uploader.uploadFormData(
+                this.options.action,
+                files
+            );
             this.response(res);
         }
     }

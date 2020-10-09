@@ -4,9 +4,7 @@ import { IUploader } from "./interface";
  * @description 获取图片的元信息
  * @param file
  */
-const getImageSize = (
-    file: File
-): Promise<IUploader.ImageMeta> => {
+const getImageSize = (file: File): Promise<IUploader.ImageMeta> => {
     const res: any = { width: "", height: "" };
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -85,10 +83,7 @@ const getScale = (width: number, height: number): string => {
  * @param type
  * @param expectType
  */
-const compareFileType = (
-    type: string,
-    expectType: string
-): boolean => {
+const compareFileType = (type: string, expectType: string): boolean => {
     return getFileType(type) === expectType;
 };
 
@@ -122,5 +117,5 @@ export {
     getFileType,
     compareFileType,
     isFileImage,
-    getFileMeta
+    getFileMeta,
 };

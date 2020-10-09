@@ -64,5 +64,5 @@ export {
     CHANGE,
     CLICK,
     _createInputProps,
-    getFileType
+    getFileType,
 };
