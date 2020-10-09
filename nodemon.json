@@ -1,6 +1,6 @@
 {
     "ignore": ["build", "example/*", "test/*", "docs/*"],
-    "delay": "500",
+    "delay": "100",
     "watch": [
         "./index.ts",
         "./src/*",
