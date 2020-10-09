@@ -37,15 +37,14 @@ const getVideoSize = (file: File): Promise<any> => {
         reader.onload = (e: ProgressEvent<FileReader>) => {
             const video = document.createElement("video");
             const dataUrl = e.target?.result;
-            console.log(dataUrl);
             video.id = "upload-video";
-            // video.style.display = "none";
+            video.style.display = "none";
             document.body.appendChild(video);
             video.src = typeof dataUrl === "string" ? dataUrl : "";
             video.addEventListener("loadedmetadata", () => {
                 res.width = video.videoWidth;
                 res.height = video.videoHeight;
-                // document.body.removeChild(video);
+                document.body.removeChild(video);
                 res.scale = getScale(res.width, res.height);
                 resolve(res);
             });
