@@ -37,20 +37,15 @@ const getVideoSize = (file: File): Promise<any> => {
         reader.onload = (e: ProgressEvent<FileReader>) => {
             const video = document.createElement("video");
             const dataUrl = e.target?.result;
+            console.log(dataUrl);
             video.id = "upload-video";
-            video.style.display = "none";
+            // video.style.display = "none";
             document.body.appendChild(video);
             video.src = typeof dataUrl === "string" ? dataUrl : "";
             video.addEventListener("loadedmetadata", () => {
-                res.width =
-                    typeof video.videoWidth === "string"
-                        ? video.videoWidth
-                        : "";
-                res.height =
-                    typeof video.videoHeight === "string"
-                        ? video.videoHeight
-                        : "";
-                document.body.removeChild(video);
+                res.width = video.videoWidth;
+                res.height = video.videoHeight;
+                // document.body.removeChild(video);
                 res.scale = getScale(res.width, res.height);
                 resolve(res);
             });
@@ -102,11 +97,27 @@ const isFileImage = (type: string): boolean => {
         compareFileType(type, "tiff");
     return isImage;
 };
+/**
+ * @description 判断是否为图片格式
+ * @param type
+ */
+const isFileVideo = (type: string): boolean => {
+    let isVideo = false;
+    isVideo = compareFileType(type, "mp4");
+    return isVideo;
+};
 
+/**
+ * @description 用于获取 文件 长/宽/长宽比的原始数据
+ * @param file
+ */
 const getFileMeta = async (file: File): Promise<any> => {
     let meta: any = {};
     if (isFileImage(file.type)) {
         meta = await getImageSize(file);
+    }
+    if (isFileVideo(file.type)) {
+        meta = await getVideoSize(file);
     }
     return Promise.resolve(meta);
 };
