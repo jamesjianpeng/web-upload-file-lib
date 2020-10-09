@@ -44,13 +44,24 @@ const request = (options) => {
     });
 };
 
-const uploadFormData = async (action: string, formData: FormData) => {
+const _uploadFormData = async (action: string, formData: FormData) => {
     const res = await request({
         type: "POST",
         url: action,
         data: formData,
     });
     return res;
+};
+
+/**
+ * @description 单个文件上传
+ */
+const uploadFormData = async (action: string, files: File[]) => {
+    const formData = new FormData();
+    files.map((file, index) => {
+        formData.append(index.toString(), file);
+    });
+    return await _uploadFormData(action, formData);
 };
 
 export { request, uploadFormData };

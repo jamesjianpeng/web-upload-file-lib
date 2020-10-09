@@ -1,6 +1,6 @@
 import { IUploader } from "../interface";
 import { uploadFormData } from "./BomXhr";
-import { getImageSize, getVideoSize, isFileImage } from "../helper";
+import { getImageSize, getVideoSize, isFileImage, getFileMeta } from "../helper";
 import { DomInput } from "./DomInput";
 export class Uploader extends DomInput {
     public readonly options: IUploader.Options;
@@ -8,21 +8,23 @@ export class Uploader extends DomInput {
     static getImageSize = getImageSize;
     static getVideoSize = getVideoSize;
     static isFileImage = isFileImage;
+    static getFileMeta = getFileMeta;
+    static uploadFormData = uploadFormData;
 
     constructor(opts: IUploader.Options) {
         super(opts);
         this.options = { ...opts };
 
-        this.mountedInputEvent(this.inputEvent.bind(this));
+        this.mountedInputEvent(this.uploadEvent.bind(this));
     }
 
-    private async inputEvent(e: any) {
+    private async uploadEvent(e: any) {
         const files: File[] = Array.from(e.target?.files || []);
 
         const isGono = await this.before(files);
         if (isGono) {
             // xhr 上传
-            const res: any = await this.uploadFormData(files);
+            const res: any = await Uploader.uploadFormData(this.options.action, files);
             this.response(res);
         }
     }
@@ -35,23 +37,12 @@ export class Uploader extends DomInput {
     public async before(files: File[], otherArg?: any): Promise<boolean> {
         const promiseAll = files.map(
             async (file: File): Promise<IUploader.IFile> => {
-                const meta = await this.getFileMeta(file);
+                const meta = await Uploader.getFileMeta(file);
                 return { file, meta };
             }
         );
         const filesRes: IUploader.IFile[] = await Promise.all(promiseAll);
         return await this.options.before(filesRes);
-    }
-
-    public async getFileMeta(file: File): Promise<any> {
-        let meta: any = {};
-        if (Uploader.isFileImage(file.type)) {
-            meta = await Uploader.getImageSize<
-                    File,
-                    IUploader.ImageMeta
-                >(file);
-        }
-        return Promise.resolve({ file, meta });
     }
 
     /**
@@ -72,16 +63,5 @@ export class Uploader extends DomInput {
      */
     public async response(data: any, otherArg?: any): Promise<void> {
         return await this.options.response(data);
-    }
-
-    /**
-     * @description 单个文件上传
-     */
-    async uploadFormData(files: File[]) {
-        const formData = new FormData();
-        files.map((file, index) => {
-            formData.append(index.toString(), file);
-        });
-        return await uploadFormData(this.options.action, formData);
     }
 }

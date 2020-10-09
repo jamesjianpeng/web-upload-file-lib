@@ -33,6 +33,18 @@ const MIME_TYPE_EXCHANGE = (() => {
     return res;
 })();
 
+/**
+ * @description 获取文件 type
+ * @param type
+ */
+const getFileType = <T extends string, U extends string>(type: T): U => {
+    let res: U = "" as U;
+    if (typeof MIME_TYPE_EXCHANGE[type] === "string") {
+        res = MIME_TYPE_EXCHANGE[type] as U;
+    }
+    return res;
+};
+
 const _createInputProps = () => ({
     type: "file",
     id: `web-upload-file-lib_input-props-v0.0.4_${new Date().getTime()}`,
@@ -44,4 +56,13 @@ const STYLE = "display: none;";
 const CHANGE = "change";
 const CLICK = "click";
 
-export { MIME_TYPE, MIME_TYPE_EXCHANGE, TAG, STYLE, CHANGE, CLICK, _createInputProps };
+export {
+    MIME_TYPE,
+    MIME_TYPE_EXCHANGE,
+    TAG,
+    STYLE,
+    CHANGE,
+    CLICK,
+    _createInputProps,
+    getFileType
+};
