@@ -1,12 +1,13 @@
 import { IUploader } from "../interface";
 import { uploadFormData } from "./BomXhr";
-import { getImageSize, getVideoSize } from "../helper";
+import { getImageSize, getVideoSize, isFileImage } from "../helper";
 import { DomInput } from "./DomInput";
 export class Uploader extends DomInput {
     public readonly options: IUploader.Options;
 
     static getImageSize = getImageSize;
     static getVideoSize = getVideoSize;
+    static isFileImage = isFileImage;
 
     constructor(opts: IUploader.Options) {
         super(opts);
@@ -34,15 +35,23 @@ export class Uploader extends DomInput {
     public async before(files: File[], otherArg?: any): Promise<boolean> {
         const promiseAll = files.map(
             async (file: File): Promise<IUploader.IFile> => {
-                const meta = await Uploader.getImageSize<
-                    File,
-                    IUploader.ImageMeta
-                >(file);
+                const meta = await this.getFileMeta(file);
                 return { file, meta };
             }
         );
         const filesRes: IUploader.IFile[] = await Promise.all(promiseAll);
         return await this.options.before(filesRes);
+    }
+
+    public async getFileMeta(file: File): Promise<any> {
+        let meta: any = {};
+        if (Uploader.isFileImage(file.type)) {
+            meta = await Uploader.getImageSize<
+                    File,
+                    IUploader.ImageMeta
+                >(file);
+        }
+        return Promise.resolve({ file, meta });
     }
 
     /**

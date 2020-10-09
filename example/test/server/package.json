@@ -23,6 +23,7 @@
     "rxjs": "^6.6.2"
   },
   "devDependencies": {
+    "@types/node": "^14.11.7",
     "ts-node-dev": "^1.0.0-pre.58",
     "typescript": "^3.9.7"
   }

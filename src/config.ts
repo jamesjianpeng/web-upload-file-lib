@@ -24,6 +24,15 @@ const MIME_TYPE = {
     mp4: "video/mp4",
 };
 
+const MIME_TYPE_EXCHANGE = (() => {
+    const res: Record<string, string> = {};
+    const keys = Object.keys(MIME_TYPE);
+    keys.map((key) => {
+        res[MIME_TYPE[key]] = key;
+    });
+    return res;
+})();
+
 const _createInputProps = () => ({
     type: "file",
     id: `web-upload-file-lib_input-props-v0.0.4_${new Date().getTime()}`,
@@ -35,4 +44,4 @@ const STYLE = "display: none;";
 const CHANGE = "change";
 const CLICK = "click";
 
-export { MIME_TYPE, TAG, STYLE, CHANGE, CLICK, _createInputProps };
+export { MIME_TYPE, MIME_TYPE_EXCHANGE, TAG, STYLE, CHANGE, CLICK, _createInputProps };

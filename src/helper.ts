@@ -1,3 +1,4 @@
+import { MIME_TYPE_EXCHANGE } from './config';
 /**
  * @description 获取图片的元信息
  * @param file
@@ -34,4 +35,22 @@ const getVideoSize = <T, U>(file: T): Promise<U> => {
     return Promise.resolve(res);
 };
 
-export { getImageSize, getVideoSize };
+const getFileType = <T extends string, U extends string>(type: T): U => {
+    let res: U = '' as U;
+    if (typeof MIME_TYPE_EXCHANGE[type] === 'string') {
+        res = MIME_TYPE_EXCHANGE[type] as U;
+    }
+    return res;
+};
+
+const compareFileType = <T extends string, U extends boolean>(type: T, expectType: T): U => {
+    return (getFileType(type) === expectType) as U;
+};
+
+const isFileImage = (type: string): boolean => {
+    let isImage = false;
+    isImage = compareFileType(type, 'png') || compareFileType(type, 'jpg') || compareFileType(type, 'jpeg');
+    return isImage;
+};
+
+export { getImageSize, getVideoSize, getFileType, compareFileType, isFileImage };
