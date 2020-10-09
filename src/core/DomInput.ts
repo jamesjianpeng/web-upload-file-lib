@@ -88,8 +88,6 @@ export class DomInput {
         let el: HTMLInputElement = document.getElementById(
             `${domInputoptions.inputProps?.id}`
         ) as HTMLInputElement;
-        console.log(el);
-        console.log(el instanceof HTMLInputElement);
         if (el) {
             el =
                 el instanceof HTMLInputElement

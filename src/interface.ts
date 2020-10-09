@@ -18,7 +18,7 @@ export namespace IUploader {
         tag?: string;
         style?: string;
         inputProps?: {
-            type?: "file";
+            type?: string;
             id?: string;
             multiple?: boolean;
         };
